@@ -35,7 +35,7 @@ def clear():
 def filterargs(argv):    
    openvpn = ''
    host = ''
-   helpstr = 'python ctfmonitor.py -u <CTFmachine> -f <openvpn config file> -h <help>' 
+   helpstr = 'python ctfmonitor.py -u <CTFmachine> -f <openvpn config file> -h <help>\nMAKE SURE TO RUN AS ADMIN OR WITH SUDO' 
    if len(argv) == 0:
       print(helpstr)
       sys.exit(2)
@@ -57,6 +57,9 @@ def filterargs(argv):
 
 if __name__ == "__main__":
    host, openvpn= filterargs(sys.argv[1:])
+   if len(openvpn) != 0:
+       if subprocess.call('openvpn ' + openvpn, stdout=FNULL) == 0:
+           print("Openvpn connection successful")
    count = 0
    received = 0
    print("Connecting to " + host)
