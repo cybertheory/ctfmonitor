@@ -41,7 +41,7 @@ def filterargs(argv):
       print(helpstr)
       sys.exit(2)
    try:
-      opts, args = getopt.getopt(argv,"ufr:h")
+      opts, args = getopt.getopt(argv,"u:f:r:h")
    except getopt.GetoptError as err:
       print(helpstr)
       print(err)
