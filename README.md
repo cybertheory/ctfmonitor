@@ -4,7 +4,7 @@ A simple tool that allows you to monitor your connection to CTF challenges, it c
 ## Features
 - Minimally Invasive (sends ping slowly 1 per second)
 - Cache Resets (resets recieved and total pings every 10 pings by default - can be changed): This allows for more accurate and sensitive monitoring
-- Allows you to start an open vpn connection
+- Allows you to start an openvpn connection
 - Output Fits in one line (small TMUX/Terminator pane will be all you need)
   - Examples:
       -Connection Strong
