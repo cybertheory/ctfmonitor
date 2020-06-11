@@ -10,7 +10,7 @@ A simple tool that allows you to monitor your connection to CTF challenges, it c
       -Connection Strong
       ![strong](images/connection.JPG)
 
-## Useage
+## Usage
 Supports python >3.8 not tested on other versions
 ***
 python ctfmonitor.py -u (CTFmachine) -f (openvpn config file) -r (number of pings till reset) -h (help)
