@@ -11,7 +11,7 @@ import sys
 import getopt
 import os
 import time
-
+import atexit
 def ping(host):
     """
     Returns True if host (str) responds to a ping request.
@@ -65,15 +65,13 @@ def filterargs(argv):
 if __name__ == "__main__":
    host, openvpn, reset= filterargs(sys.argv[1:])
    if len(openvpn) != 0:
-       FNULL = open(os.devnull, 'w')
-       if subprocess.call('openvpn ' + openvpn, stdout=FNUll) == 0:
-           print("Openvpn connection successful")
+       p = subprocess.Popopen('openvpn ' + openvpn, stdout=PIPE)
+       atexit.register(p.kill())
    count = 0
    received = 0
    print("Connecting to " + host + " *loss cache will reset every " + str(reset) + " pings*")
    time.sleep(5)
    while(1):
-       
        if count == reset:
            count = 0
            received = 0
