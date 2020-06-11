@@ -41,15 +41,15 @@ def filterargs(argv):
       print(helpstr)
       sys.exit(2)
    try:
-      opts, args = getopt.getopt(argv,"u:f:h:r")
+      opts, args = getopt.getopt(argv,"ufr:h")
    except getopt.GetoptError as err:
-      print(err)
       print(helpstr)
+      print(err)
       sys.exit(2)
    for opt, arg in opts:
       if opt == '-h':
          print(helpstr)
-         sys.exit()
+         sys.exit(2)
       elif opt == '-u':
          host = arg
       elif opt == '-f':
@@ -65,13 +65,15 @@ def filterargs(argv):
 if __name__ == "__main__":
    host, openvpn, reset= filterargs(sys.argv[1:])
    if len(openvpn) != 0:
-       if subprocess.call('openvpn ' + openvpn, stdout=FNULL) == 0:
+       FNULL = open(os.devnull, 'w')
+       if subprocess.call('openvpn ' + openvpn, stdout=FNUll) == 0:
            print("Openvpn connection successful")
    count = 0
    received = 0
-   print("Connecting to " + host + " *loss cache will reset every " + reset + " pings*")
+   print("Connecting to " + host + " *loss cache will reset every " + str(reset) + " pings*")
    time.sleep(5)
    while(1):
+       
        if count == reset:
            count = 0
            received = 0
