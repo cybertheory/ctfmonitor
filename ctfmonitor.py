@@ -67,6 +67,12 @@ if __name__ == "__main__":
    if len(openvpn) != 0:
        p = subprocess.Popopen('openvpn ' + openvpn, stdout=PIPE)
        atexit.register(p.kill())
+       streamdata = p.communicate()[0]
+       rc = p.returncode
+       if rc == 0:
+           print("openvpn connected!")
+       else:
+           print("something went wrong with openvpn")    
    count = 0
    received = 0
    print("Connecting to " + host + " *loss cache will reset every " + str(reset) + " pings*")
