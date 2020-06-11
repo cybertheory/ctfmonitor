@@ -6,13 +6,9 @@ A simple tool that allows you to monitor your connection to CTF challenges, it c
 - Cache Resets (resets recieved and total pings every 10 pings by default - can be changed): This allows for more accurate and sensitive monitoring
 - Allows you to start an open vpn connection
 - Output Fits in one line (small TMUX/Terminator pane will be all you need)
-  - Outputs:
+  - Examples:
       -Connection Strong
       ![strong](images/connection.JPG)
-      -Some packet loss
-      ![Packet Loss](images/)
-      -No Connection
-      ![No Connection](images/)
 
 ## Useage
 Supports python >3.8 not tested on other versions
