@@ -35,12 +35,13 @@ def clear():
 def filterargs(argv):    
    openvpn = ''
    host = ''
-   helpstr = 'python ctfmonitor.py -u <CTFmachine> -f <openvpn config file> -h <help>\nMAKE SURE TO RUN AS ADMIN OR WITH SUDO' 
+   reset = '10'
+   helpstr = 'python ctfmonitor.py -u <CTFmachine> -f <openvpn config file> -r <number of pings till reset (default 10)> -h <help>\nMAKE SURE TO RUN AS ADMIN OR WITH SUDO' 
    if len(argv) == 0:
       print(helpstr)
       sys.exit(2)
    try:
-      opts, args = getopt.getopt(argv,"u:f:h")
+      opts, args = getopt.getopt(argv,"u:f:h:r")
    except getopt.GetoptError as err:
       print(err)
       print(helpstr)
@@ -53,19 +54,25 @@ def filterargs(argv):
          host = arg
       elif opt == '-f':
          openvpn = arg
-   return host,openvpn 
+      elif opt == '-r':
+          try:
+              reset = int(arg)
+          except:
+              print("reset argument too large")
+              sys.exit(2)
+   return host,openvpn, reset
 
 if __name__ == "__main__":
-   host, openvpn= filterargs(sys.argv[1:])
+   host, openvpn, reset= filterargs(sys.argv[1:])
    if len(openvpn) != 0:
        if subprocess.call('openvpn ' + openvpn, stdout=FNULL) == 0:
            print("Openvpn connection successful")
    count = 0
    received = 0
-   print("Connecting to " + host + " *loss cache will reset every 20 pings*")
+   print("Connecting to " + host + " *loss cache will reset every " + reset + " pings*")
    time.sleep(5)
    while(1):
-       if count == 20:
+       if count == reset:
            count = 0
            received = 0
        if ping(host):
