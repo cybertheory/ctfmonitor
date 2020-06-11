@@ -9,7 +9,7 @@ A simple tool that allows you to monitor your connection to CTF challenges, it c
 
 ## Useage
 ***
-python ctfmonitor.py -u <CTFmachine> -f <openvpn config file> -r <number of pings till reset (default 10)> -h <help>
+python ctfmonitor.py -u <CTFmachine> -f <openvpn config file> -r <number of pings till reset> -h <help>
 MAKE SURE TO RUN AS ADMIN OR WITH SUDO
 ***
 
