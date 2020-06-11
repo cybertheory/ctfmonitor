@@ -66,7 +66,10 @@ if __name__ == "__main__":
    host, openvpn, reset= filterargs(sys.argv[1:])
    if len(openvpn) != 0:
        p = subprocess.Popen('openvpn ' + openvpn, shell=True,stdout=subprocess.PIPE)
-       atexit.register(p.kill)
+       if platform.system().lower()=='windows':
+           atexit.register(os.system,'tkill openvpn')
+       else:
+           atexit.register(os.system,'pkill openvpn')
        print("openvpn connected!")
    count = 0
    received = 0
