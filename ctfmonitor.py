@@ -62,22 +62,33 @@ if __name__ == "__main__":
            print("Openvpn connection successful")
    count = 0
    received = 0
-   print("Connecting to " + host)
-   time.sleep(2)
+   print("Connecting to " + host + " *loss cache will reset every 20 pings*")
+   time.sleep(5)
    while(1):
+       if count == 20:
+           count = 0
+           received = 0
        if ping(host):
            count += 1
            received += 1
            loss=(count-received)/count
            if loss == 0:
                clear()
-               print("Connection Strong")
+               print("Connection at no loss [||||||||||||||||||||||||||||||||]")
+           elif loss == 1.0:
+               clear()
+               print("No Connection No Connection No Connection No Connection")
            else:
                clear()
-               print("Packet Loss: " + str(loss))
+               print("Connection at some loss: " + str(round(loss,2)))
        else:
            count += 1
            loss=(count-received)/count
            clear()
-           print("Packet Loss: " + str(loss))
+           if loss == 1.0:
+               clear()
+               print("No Connection No Connection No Connection No Connection")
+           else:
+               clear()
+               print("Connection at some loss: " + str(round(loss,2)))
        time.sleep(1)
