@@ -66,7 +66,7 @@ if __name__ == "__main__":
    host, openvpn, reset= filterargs(sys.argv[1:])
    if len(openvpn) != 0:
        p = subprocess.Popen('openvpn ' + openvpn, shell=True,stdout=subprocess.PIPE)
-       atexit.register(p.kill())
+       atexit.register(p.kill)
        streamdata = p.communicate()[0]
        rc = p.returncode
        if rc == 0:
