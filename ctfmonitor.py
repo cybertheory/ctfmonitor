@@ -46,6 +46,10 @@ def filterargs(argv):
       print(helpstr)
       print(err)
       sys.exit(2)
+   if '-u' not in opts[0]:
+       print("\n\n*No CTF IP or DNS provided*\n\n")
+       print(helpstr)
+       sys.exit(2)
    for opt, arg in opts:
       if opt == '-h':
          print(helpstr)
@@ -53,24 +57,30 @@ def filterargs(argv):
       elif opt == '-u':
          host = arg
       elif opt == '-f':
-         openvpn = arg
+         if '.ovpn' in arg:
+             openvpn = arg
+         else:
+             print("Invalid Openvpn Config file (not .ovpn)")
       elif opt == '-r':
           try:
               reset = int(arg)
           except:
-              print("reset argument too large")
+              print("\n\n*reset argument too large*\n\n")
               sys.exit(2)
    return host,openvpn, reset
 
 if __name__ == "__main__":
    host, openvpn, reset= filterargs(sys.argv[1:])
    if len(openvpn) != 0:
-       p = subprocess.Popen('openvpn ' + openvpn, shell=True,stdout=subprocess.PIPE)
-       if platform.system().lower()=='windows':
-           atexit.register(os.system,'tkill openvpn')
+       FNULL = open(os.devnull, 'w')
+       if subprocess.call('openvpn ' + openvpn, shell=True,stdout=FNULL) == 0:
+           if platform.system().lower()=='windows':
+               atexit.register(os.system,'tkill openvpn')
+           else:
+               atexit.register(os.system,'pkill openvpn')
+           print("\n\nopenvpn connected!\n\n")
        else:
-           atexit.register(os.system,'pkill openvpn')
-       print("openvpn connected!")
+           print('\n\n ***COULD NOT FIND OPENVPN*** \n\n')
    count = 0
    received = 0
    print("Connecting to " + host + " *loss cache will reset every " + str(reset) + " pings*")
