@@ -8,7 +8,7 @@ A simple tool that allows you to monitor your connection to CTF challenges, it c
 - Output Fits in one line (small TMUX/Terminator pane will be all you need)
   - Outputs:
       -Connection Strong
-      ![strong](images/connection.jpg)
+      ![strong](images/connection.JPG)
       -Some packet loss
       ![Packet Loss](images/)
       -No Connection
